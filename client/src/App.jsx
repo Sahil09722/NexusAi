@@ -30,7 +30,7 @@ export default function App() {
 
       setMessages((prev) => [...prev, { sender: "bot", text: res.data.reply }]);
     } catch (err) {
-      setMessages((prev) => [...prev, { sender: "bot", text: "⚠️ Error connecting to server!" }]);
+      setMessages((prev) => [...prev, { sender: "bot", text: "Error connecting to server!" }]);
     }
 
     setLoading(false);

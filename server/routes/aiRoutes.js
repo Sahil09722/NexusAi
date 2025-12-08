@@ -1,24 +1,24 @@
 import express from "express";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
+
 const router = express.Router();
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-router.post("/", async (req, res) => {
+router.post("/ai", async (req, res) => {
   try {
     const { prompt } = req.body;
+    if (!prompt) return res.status(400).json({ error: "Prompt is required" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const result = await model.generateContent(prompt);
-    const reply = result.response.text();
 
-    res.json({ reply });
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    res.status(500).json({ reply: "⚠️ Error generating response." });
+    res.json({ reply: result.response.text() });
+  } catch (err) {
+    console.error("AI ERROR:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 

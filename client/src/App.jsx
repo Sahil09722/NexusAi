@@ -57,19 +57,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 relative overflow-hidden">
+    <div className="flex flex-col h-screen bg-slate-950 text-slate-50 overflow-hidden">
+      {/* Background gradients */}
       <div className="pointer-events-none absolute inset-0 opacity-60">
         <div className="absolute -left-10 -top-10 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
         <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
       </div>
 
-      <header className="sticky top-0 z-10 border-b border-white/5 bg-slate-950/80 backdrop-blur">
+      {/* Header - fixed height */}
+      <header className="flex-none sticky top-0 z-10 border-b border-white/5 bg-slate-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-lg font-bold">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-lg font-bold shrink-0">
               NX
             </div>
-            <div>
+            <div className="flex flex-col">
               <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
                 Nexus AI
               </p>
@@ -77,27 +79,27 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm text-slate-400">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Live
+            <span className="h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
+            <span>Live</span>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto flex max-w-5xl flex-1 flex-col gap-4 px-4 py-6 md:px-6">
-        <section className="rounded-2xl border border-white/10 bg-slate-900/70 p-4 shadow-2xl backdrop-blur">
-          <div className="flex flex-wrap gap-2 pb-3">
+      <main className="flex-1 flex flex-col mx-auto w-full max-w-5xl px-4 py-6 md:px-6 gap-4 overflow-hidden">
+        <section className="flex-1 flex flex-col rounded-2xl border border-white/10 bg-slate-900/70 shadow-2xl backdrop-blur overflow-hidden">
+          <div className="flex-none flex flex-wrap gap-2 p-4 pb-3 border-b border-white/5">
             {quickPrompts.map((prompt) => (
               <button
                 key={prompt}
                 onClick={() => handlePromptClick(prompt)}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200 transition hover:border-blue-400/50 hover:bg-blue-500/10"
+                className="flex-shrink-0 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200 transition hover:border-blue-400/50 hover:bg-blue-500/10"
               >
                 {prompt}
               </button>
             ))}
           </div>
 
-          <div className="min-h-[400px] max-h-[430px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
+          <div className="flex-1 flex flex-col overflow-y-auto p-4 space-y-4 scrollbar-hide">
             {messages.map((msg, idx) => (
               <ChatMessage key={idx} sender={msg.sender} text={msg.text} />
             ))}
@@ -106,32 +108,24 @@ export default function App() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-white/10 bg-slate-900/80 p-4 shadow-2xl backdrop-blur">
-          <div className="flex flex-col gap-3">
-            {/* <div className="flex items-center justify-between text-xs text-slate-400">
-              <span>Press Enter to send • Shift+Enter for new line</span>
-              <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-emerald-300">
-                Online
-              </span>
-            </div> */}
-            <div className="flex gap-3">
-              <textarea
-                placeholder="Ask about the weather, forecasts, or recommendations..."
-                className="flex-1 resize-none rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 shadow-inner outline-none ring-0 transition focus:border-blue-400/60 focus:bg-slate-950"
-                rows={3}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-              <button
-                onClick={sendMessage}
-                disabled={loading}
-                className="flex h-fit items-center gap-2 self-end rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-600/50"
-              >
-                {loading ? "Sending..." : "Send"}
-                <span className="text-lg">➤</span>
-              </button>
-            </div>
+        <section className="flex-none rounded-2xl border border-white/10 bg-slate-900/80 p-4 shadow-2xl backdrop-blur">
+          <div className="flex gap-3 items-end">
+            <textarea
+              placeholder="Ask about the weather, forecasts, or recommendations..."
+              className="flex-1 resize-none rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 shadow-inner outline-none ring-0 transition focus:border-blue-400/60 focus:bg-slate-950 scrollbar-hide"
+              rows={2}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <button
+              onClick={sendMessage}
+              disabled={loading}
+              className="flex-none flex items-center justify-center gap-2 h-[52px] rounded-xl bg-blue-600 px-5 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-600/50"
+            >
+              {loading ? "Sending..." : "Send"}
+              <span className="text-lg">➤</span>
+            </button>
           </div>
         </section>
       </main>

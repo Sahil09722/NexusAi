@@ -78,7 +78,7 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2 text-sm text-slate-400">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Live • Gemini 1.5 Flash
+            Live
           </div>
         </div>
       </header>
@@ -97,7 +97,7 @@ export default function App() {
             ))}
           </div>
 
-          <div className="min-h-[400px] max-h-[400px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
+          <div className="min-h-[400px] max-h-[430px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
             {messages.map((msg, idx) => (
               <ChatMessage key={idx} sender={msg.sender} text={msg.text} />
             ))}
@@ -108,12 +108,12 @@ export default function App() {
 
         <section className="rounded-2xl border border-white/10 bg-slate-900/80 p-4 shadow-2xl backdrop-blur">
           <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between text-xs text-slate-400">
+            {/* <div className="flex items-center justify-between text-xs text-slate-400">
               <span>Press Enter to send • Shift+Enter for new line</span>
               <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-emerald-300">
                 Online
               </span>
-            </div>
+            </div> */}
             <div className="flex gap-3">
               <textarea
                 placeholder="Ask about the weather, forecasts, or recommendations..."

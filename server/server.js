@@ -3,11 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import aiRoutes from "./routes/aiRoutes.js";
+import wearherRoute from "./routes/weatherRoute.js";
 
 const app = express();
 dotenv.config();
-
-
 
 app.use(express.json());
 app.use(cors());
@@ -18,6 +17,7 @@ mongoose
 .catch(err => console.error(err));
 
 app.use("/api", aiRoutes);
+app.use("/api/weather", wearherRoute);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
